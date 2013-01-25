@@ -4,4 +4,11 @@
 			<arg direction="out" type="as" name="list" />
 		</method>
 	</interface>
+
+	<interface name="org.uimi.Dict">
+		<method name="Search">
+			<arg direction="in" type="s" name="word" />
+			<arg direction="out" type="aa{sv}" name="result" />
+		</method>
+	</interface>
 </node>

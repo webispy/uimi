@@ -14,9 +14,14 @@ INCLUDE_DIRECTORIES(
 	${CMAKE_SOURCE_DIR}/include
 	${CMAKE_BINARY_DIR})
 
-SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS} -Werror -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Wdeclaration-after-statement -Wmissing-declarations -Wcast-align")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS} -Werror -Wextra -Wno-unused-parameter -Wno-missing-field-initializers -Wdeclaration-after-statement -Wmissing-declarations -Wcast-align -g")
 
 SET(SRCS
+	src/util.c
+	src/uimi_dbus.c
+	src/uimi_driver.c
+	src/uimi_config.c
+	src/uimi_log.c
 	src/main.c)
 
 ADD_CUSTOM_COMMAND(
@@ -28,3 +33,8 @@ ADD_EXECUTABLE(uimi ${SRCS} ${CMAKE_BINARY_DIR}/generated-code.c)
 TARGET_LINK_LIBRARIES(uimi ${pkgs_LDFLAGS})
 
 INSTALL(TARGETS uimi RUNTIME DESTINATION bin)
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/res/uimi.conf DESTINATION ${PREFIX}/etc)
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/res/test.csv DESTINATION /usr/share/uimi)
+INSTALL(FILES ${CMAKE_SOURCE_DIR}/res/test2.csv DESTINATION /usr/share/uimi)
+
+ADD_SUBDIRECTORY(drivers)
